@@ -19,7 +19,7 @@ const buildingService = require('./building.service');
 exports.updateBuilding = (req, res, next) => {
     const id = req.params.id;
     const { name, floors } = req.body;
-    if (!name || !floors ) {
+    if (!name || !floors || !classrooms ) {
         return next(
             new createError.BadRequest("Missing properties!")
         );
@@ -28,6 +28,7 @@ exports.updateBuilding = (req, res, next) => {
     const update = {
         name: name,
         floors: floors,
+        classrooms: classrooms
     };
     return buildingService.update(req.params.id, update)
         .then(building => {
@@ -39,6 +40,10 @@ exports.updateBuilding = (req, res, next) => {
 };
 
 
-exports.getAllBuildingWithClassrooms = ('/', (req, res, next) => {
-    return controller.findAll(req, res, next);
-  });
+exports.getAllBuildingWithClassrooms = () => {
+    return buildingService.getAll()
+          .then( buildings => {
+              res.json(buildings);
+          });
+
+        };
