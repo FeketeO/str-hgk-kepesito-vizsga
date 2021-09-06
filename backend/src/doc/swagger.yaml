@@ -330,4 +330,26 @@ components:
         message:
           type: string
         has_error:
-          type: boolean      
+          type: boolean
+    Classroom:
+      type: string      
+    Error:
+      type: object
+      required:
+        - message
+        - has_error
+      properties:
+        message:
+          type: string
+        has_error:
+          type: boolean
+    Error:
+      type: object
+      required:
+        - message
+        - has_error
+      properties:
+        message:
+          type: string
+        has_error:
+          type: boolean            

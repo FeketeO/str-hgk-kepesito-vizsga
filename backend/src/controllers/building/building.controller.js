@@ -9,10 +9,36 @@
  * A szerver a megfelelő válaszokat küldje el a kliens felé
  */
 
-const httpError = require('http-errors');
+
+const express = require('express');
+const createError = require('http-errors');
+
+const buildingService = require('./building.service');
 
 
-exports.updateBuilding = (req, res, next) => {}
+exports.updateBuilding = (req, res, next) => {
+    const id = req.params.id;
+    const { name, floors } = req.body;
+    if (!name || !floors ) {
+        return next(
+            new createError.BadRequest("Missing properties!")
+        );
+    }
+
+    const update = {
+        name: name,
+        floors: floors,
+    };
+    return buildingService.update(req.params.id, update)
+        .then(building => {
+            res.json(building);
+        })
+        .catch( err => {
+            next(new createError.InternalServerError(err.message));
+        });
+};
 
 
-exports.getAllBuildingWithClassrooms = () => {};
+exports.getAllBuildingWithClassrooms = ('/', (req, res, next) => {
+    return controller.findAll(req, res, next);
+  });
