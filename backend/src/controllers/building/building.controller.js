@@ -44,6 +44,9 @@ exports.getAllBuildingWithClassrooms = () => {
     return buildingService.getAll()
           .then( buildings => {
               res.json(buildings);
-          });
+          }).catch(err => {
+            console.error(err);
+            return new httpError.InternalServerError('List not sended')
 
-        };
+        })
+    };
