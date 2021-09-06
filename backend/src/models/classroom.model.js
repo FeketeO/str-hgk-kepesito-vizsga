@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const idValidator = require('mongoose-id-validator');
 
 module.exports = mongoose.model('Classroom', mongoose.Schema({
     name: {
@@ -10,3 +11,7 @@ module.exports = mongoose.model('Classroom', mongoose.Schema({
         ref: 'Building'
     }]
 }), 'classrooms');
+
+
+ClassroomSchema.plugin(idValidator);
+

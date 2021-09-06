@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
+const idValidator = require('mongoose-id-validator');
 
-module.exports = mongoose.model('Building', {
+module.exports = mongoose.model('Building', mongoose.Schema({
     name: {
         type: String
     },
@@ -11,4 +12,6 @@ module.exports = mongoose.model('Building', {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Classroom'
     }]
-}, 'buildings');
+}), 'buildings');
+
+BuildingSchema.plugin(idValidator);
